@@ -23,18 +23,17 @@ for line in f:
         reg = re.match(r'#.*', line)
         if (reg != None):
             fw.write(line)
-    else:
-        reg = re.match(r'(.{33}?) (.?)',line)
+            fw.write("\n")
+    elif(flag == 3):
+        reg = re.match(r'(.{33}) (.?)',line)
         if (reg != None):
             key = reg.group(2)
-            #fw.write(counters[key])
+            fw.write(counters[key])
+            fw.write(": ")
             strvalue = str(reg.group(1))
             strvalue = strvalue[1:]
-            print line
-            print strvalue
-            break;
             value = int(strvalue, 2) 
-    
-print counters
+            fw.write(str(value)) 
+            fw.write("\n")
 f.close()
 fw.close()
