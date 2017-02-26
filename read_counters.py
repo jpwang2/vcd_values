@@ -1,4 +1,5 @@
 import sys
+import traceback
 import re
 
 counters = {} 
@@ -22,10 +23,17 @@ for line in f:
         reg = re.match(r'#.*', line)
         if (reg != None):
             fw.write(line)
-    else
-        reg = re.match(r'(.*) (.?)',line)
-        reg.group(1) #the value
-        reg.group(2) #the counter key
+    else:
+        reg = re.match(r'(.{33}?) (.?)',line)
+        if (reg != None):
+            key = reg.group(2)
+            #fw.write(counters[key])
+            strvalue = str(reg.group(1))
+            strvalue = strvalue[1:]
+            print line
+            print strvalue
+            break;
+            value = int(strvalue, 2) 
     
 print counters
 f.close()
