@@ -9,8 +9,10 @@ counter_time = {} #key = time, val = list of counters
 time = 2292000000
 use_curr_power = 0
 
+'''
 fpower = open('/home/david/huawei/mul/test2/power_values.out', 'r')
 #parse and regularlize the power values
+print "Reading Power File"
 for line in fpower:
     #have some internal number every 1000ns or something, compare the value in the file with that
     #if file value >= or equal internal value, append value to either list or hash table
@@ -42,8 +44,10 @@ for line in fpower:
                 time += 1000000000
     
 fpower.close()
+'''
 
 fcnt = open('/home/david/cnt_vals.out', 'r')
+print "Reading Counters"
 time = 2292000000
 for line in fcnt:
     #basically same deal as above, but now we have variable # of lines before a time value, so we have to check
@@ -58,14 +62,21 @@ for line in fcnt:
             #if time = file time, then write to time dictionary
             if (int(line[1:]) >= time):
                #counter_time[time] = [counters[0], counters[1], counters[1], counters[1], counters[1], counters[1], counters[1], counters[1], counters[1], counters[1]]  
-               counter_time[time] = [x for x in counters]
+               #counter_time[time] = [x for x in counters]
+               counter_time[time] = counters.values()
+               time += 1000000000
     else:
-        if not line.strip(): 
+        if line.strip(): 
+            #print line
             reg = re.match(r'(.{4,5}?): (.*)',line)
             key = reg.group(1)
             val = reg.group(2)
             counters[key] = val
+    #just for now so it matches with the power values
+    if (time > 8629200001):
+        break
 
 fcnt.close()
 print power_vals
 print counter_time
+print counters
