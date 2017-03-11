@@ -12,7 +12,7 @@ power_vals = {} #key = time, val = power value
 counter_time = {} #key = time, val = list of counters
 time = 2292000000
 use_curr_power = 0
-inc_t = 1000000000
+inc_t = 100000000
 
 fpower = open('/home/david/huawei/mul/test2/power_values.out', 'r')
 #parse and regularlize the power values
